@@ -5,7 +5,7 @@ import platform
 
 def IsSymlink(path):
       FILE_ATTRIBUTE_REPARSE_POINT = 0x0400
-      if path.isdir(path) and \
+      if os.path.isdir(path) and \
         (ctypes.windll.kernel32.GetFileAttributesW(unicode(path)) & FILE_ATTRIBUTE_REPARSE_POINT):
         return True
       else:
