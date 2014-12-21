@@ -11,8 +11,8 @@ def IsSymlink(path):
       else:
         return False
 
-def unlink(path):
-    return ctypes.windll.kernel32.UnlockFile(unicode(path))
+#def unlink(path):
+#    return ctypes.windll.kernel32.UnlockFile(unicode(path))
 
 def symlink(src,dst):
     if os.path.isdir(src):
@@ -23,6 +23,6 @@ def symlink(src,dst):
 
 if "windows" in platform.system().lower():
     os.path.islink = IsSymlink
-    os.unlink = unlink
+    #os.unlink = unlink
     os.symlink = symlink
 
