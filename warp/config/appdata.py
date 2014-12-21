@@ -3,9 +3,8 @@ import os
 import warp.os
 import shutil
 
-from warp.logging import log
-
-log.get_logger(__name__)
+import warp.logging
+log = warp.logging.get_logger(__name__)
 
 class AppData(object):
 
