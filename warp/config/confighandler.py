@@ -29,6 +29,9 @@ class ConfigHandler(object):
 
     def load(self):
         self._config = self.__read_dict_from_file(self.path)
+    
+    def save(self):
+        self.__store_dict_to_file(self.path, self._config)
 
     @property
     def config(self):
