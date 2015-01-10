@@ -6,6 +6,7 @@ import shutil
 import warp.logging
 log = warp.logging.get_logger(__name__)
 
+
 class AppData(object):
 
     """docstring for AppData"""
@@ -18,6 +19,7 @@ class AppData(object):
             os.path.dirname(os.path.abspath(self.script_path)))
         self.script_config_path = os.path.join(self.script_root_path, "config")
         self.develop = develop
+        self.paths = []
 
     @property
     def default_config_dir(self):
@@ -29,15 +31,12 @@ class AppData(object):
 
     @property
     def data_paths(self):
-        paths = [self.default_data_dir,
-                 os.path.join(self.script_root_path, "data")]
+        paths = self.paths + [self.default_data_dir, os.path.join(self.script_root_path, "data")]
         return paths
 
     @property
     def config_paths(self):
-        paths = [self.default_config_dir,
-                 os.path.join(self.script_root_path, "config")
-                 ]
+        paths = self.paths + [self.default_config_dir, os.path.join(self.script_root_path, "config")]
         return paths
 
     def __get_file_path(self, paths, name):
@@ -63,11 +62,19 @@ class AppData(object):
     def get_data_file_path(self, name):
         return self.__get_file_path(self.data_paths, name)
 
+    def add_path(self, path):       
+        self.paths.append(os.path.expandvars(path))
 
 
 def main():
 
     appdata = AppData("tarsync", os.path.realpath(__name__))
+    appdata.add_path("~/Dropbox/")
+
+    print appdata.data_paths
+    print appdata.config_paths
+
+
 
     # print appdata.app_name
     # print appdata.script_path
