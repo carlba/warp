@@ -3,6 +3,7 @@ import sys
 import os
 import stat
 import errno
+import subprocess
 
 
 def safe_remove_folder(folder):
@@ -31,3 +32,14 @@ def makedirs(path, exist_ok=False):
                 raise
     else:
         os.makedirs(path)
+
+
+def locate(pattern, **kwargs):
+
+    args = ["locate"]
+    if "regex" in kwargs:
+        args.append("--regex")
+
+    args.append(pattern)
+
+    return subprocess.check_output(args).split()
