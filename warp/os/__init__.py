@@ -4,7 +4,7 @@ import os
 import stat
 import errno
 import subprocess
-
+import datetime
 
 def safe_remove_folder(folder):
     if sys.platform.startswith('win'):
@@ -43,3 +43,15 @@ def locate(pattern, **kwargs):
     args.append(pattern)
 
     return subprocess.check_output(args).split()
+
+
+class Path(object):
+    """docstring for Path"""
+    def __init__(self, path):
+        super(Path, self).__init__()
+        self.path = path
+        
+
+def modification_date(filename):
+    t = os.path.getmtime(filename)
+    return datetime.datetime.fromtimestamp(t)
